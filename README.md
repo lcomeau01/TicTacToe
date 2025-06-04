@@ -14,11 +14,9 @@ A fun and interactive browser-based Tic Tac Toe game with dynamic player turns, 
 
 ## 📁 File Structure
 
-| File | Description |
-|------|-------------|
-| `index.html` | Main HTML file containing the entire game interface, styling, and JavaScript logic. |
-| `images/tictactoe.png` | Favicon image for branding (you'll need to supply this). |
 
+### `index.html`  
+ Main HTML file containing the entire game interface, styling, and JavaScript logic. 
 
 
 ## 🔧 Tech Stack
