@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe 4</title>
+    <link rel="icon" type="image/x-icon" href="images/tictactoe.png">
+    <link href="https://fonts.cdnfonts.com/css/whiteboard" rel="stylesheet">
+    <style>
+        html { 
+            height: 100%; 
+            width: 100%;
+        }
+        body { 
+            width: 100%; 
+            height: 100%; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0px; 
+        }
+        h1 { 
+            font-family: 'Whiteboard', sans-serif;
+            font-size: 130px;
+            margin: 0px; 
+        }
+        .board { 
+            display: grid; 
+            grid-template-columns: auto auto auto;
+        }
+        .square { 
+            width: 100px; 
+            height: 100px; 
+            border: solid #000000 10px; 
+            border-radius: 20px;
+            margin: 10px; 
+
+            /* Display Settings for Centering Text */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .square:hover { 
+            background-color: #E3E4E6;
+            cursor: pointer;
+        }
+        .O { 
+            font-size: 100px;
+            font-family: 'Whiteboard', sans-serif;
+            color: #87ACDC; 
+        }
+        .X { 
+            font-size: 100px;
+            font-family: 'Whiteboard', sans-serif;
+            color: #FF7F7F;  
+        }
+        .bottom { 
+            display: flex; 
+        }
+        .turns, .win { 
+            width: 325px; 
+            margin: 20px;
+
+            /* Display Settings for Centering Text */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        p { 
+            margin: 0px; 
+        }
+        .turns p, .win p { 
+            font-size: 30px;
+            font-family: 'Whiteboard', sans-serif;
+        }
+        #start { 
+            width: 360px; 
+            height: 100px; 
+            font-size: 50px;
+            background-color: #FFFFFF;
+            border-radius: 10px;
+            border: #000000 solid 10px; 
+            text-align: center;
+            font-family: 'Whiteboard', sans-serif;
+        }
+        #start:hover { 
+            background-color: #90EE8F;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- HTML BEGIN -->
+    <h1> tic tac toe </h1>
+    <button id="start"> START GAME </button>
+    <section class="bottom">
+        <div class="turns"> <p id="player"> press start to play </p></div>
+        <div class="win"> <p id="win"> no current winner </p></div>
+    </section>
+    <!-- HTML END -->
+    <!-- JAVASCRIPT BEGIN -->
+    <section class="board">
+        <script>
+            // Constants and global variables declared
+            const NUM_SQUARES = 9;
+            CURR_TURN = Math.round(Math.random()); 
+            numLoss = 0; 
+
+            // Set up squares / divs 
+            for (i=0; i<NUM_SQUARES; i++)
+            {
+                id = "sq"+i;
+                document.write( "<div class='square' id='" + id + "'></div>" );
+            }
+
+            // creates squares array and stages the board for first load of page
+            squares = document.getElementsByClassName("square"); 
+            SETBOARD(); 
+            
+            // Performs correct actions when a square has been clicked 
+            squares = document.getElementsByClassName("square"); 
+            for (let i=0; i<NUM_SQUARES; i++)
+            {
+                squares[i].onclick = function() { 
+                    if((squares[i].innerText == "") && (endGame == false)){ 
+                        // decide if it is an X or O turn 
+                        if(CURR_TURN % 2 == 0) setX(squares[i]); 
+                        else setO(squares[i]); 
+                        // create arrays 
+                        moves = ["-", "-", "-", "-", "-", "-", "-", "-", "-"];
+                        winConditions = ["---", "---", "---", "---", "---", "---", "---", "---"]; 
+                        // fill all arrays and check win condition 
+                        Array.from(squares).forEach(updateMoves); 
+                        updateWinConditions();
+                        winConditions.forEach(findWinner); 
+                        // reset variable for stalemate 
+                        numLoss = 0; 
+                        // set a new player if the game is still going 
+                        if (endGame == false) setPlayer(); 
+                    }
+                }; 
+            }
+
+            // Sets a square to X or O if it is empty 
+            function setX (elem) { 
+                if(elem.innerText == "") { 
+                    elem.innerHTML += "<p class='X'>X</p>"; 
+                    CURR_TURN++; 
+                }
+            }
+            function setO (elem) { 
+                if(elem.innerText == "") { 
+                    elem.innerHTML += "<p class='O'>O</p>"; 
+                    CURR_TURN++; 
+                }
+            } 
+            // Sets the player to X or O 
+            function setPlayer () { 
+                if (CURR_TURN % 2 == 0) { 
+                    document.getElementById("player").innerText = " player X's turn"; 
+                }
+                else { 
+                    document.getElementById("player").innerText = " player O's turn"; 
+                }
+            }
+            // updates the moves array 
+            function updateMoves(item, index, arr) { 
+                currVal = arr[index].innerText
+                if (currVal != "") { 
+                    moves[index] = currVal;
+                }
+                else { 
+                    moves[index] = "-"; 
+                }
+            }
+
+            function updateWinConditions() { 
+                // WIN CONDITION 1
+                winConditions[0] = moves[0] + moves[1] + moves[2]; 
+                // WIN CONDITION 2
+                winConditions[1] = moves[3] + moves[4] + moves[5]; 
+                // WIN CONDITION 3
+                winConditions[2] = moves[6] + moves[7] + moves[8];
+                // WIN CONDITION 4
+                winConditions[3] = moves[0] + moves[3] + moves[6];
+                // WIN CONDITION 5
+                winConditions[4] = moves[1] + moves[4] + moves[7];
+                // WIN CONDITION 6
+                winConditions[5] = moves[2] + moves[5] + moves[8];
+                // WIN CONDITION 7
+                winConditions[6] = moves[0] + moves[4] + moves[8];
+                // WIN CONDITION 8
+                winConditions[7] = moves[2] + moves[4] + moves[6];
+            }
+
+            function findWinner(item, index, arr) { 
+                // if a player has won, end the game 
+                if (item == "XXX" || item == "OOO") { 
+                    if (CURR_TURN % 2 == 0) { 
+                        document.getElementById("win").innerText = "Player O Wins";
+                    }
+                    else { 
+                        document.getElementById("win").innerText = "Player X Wins";
+                    }
+                    endGame = true; 
+                }
+                else if (item.search('-') == -1)
+                { // search to see if there are no dashes 
+                    numLoss++;
+                }
+                if (numLoss == 8) { 
+                    document.getElementById("win").innerText = "stalemate"; 
+                    endGame = true; 
+                    // if there are no dashes, end game with a tie 
+                }
+            }
+
+
+            // Resets the game if the player hits "start"
+            start = document.getElementById("start"); 
+            start.onclick = function () { 
+                for (let i = 0; i < NUM_SQUARES; i++) { 
+                    squares[i].innerText = ""; 
+                }
+                CURR_TURN = Math.round(Math.random()); 
+                setPlayer(); 
+                moves = ["-", "-", "-", "-", "-", "-", "-", "-", "-"];
+                document.getElementById("win").innerText = "no current winner"; 
+                endGame = false; 
+            }
+
+            // set the board at the beginning for purely aesthetic reasons 
+            function SETBOARD() { 
+                squares[0].innerHTML = "<p class='X'>X</p>"; 
+                squares[5].innerHTML = "<p class='O'>O</p>";  
+                squares[7].innerHTML = "<p class='X'>X</p>"; 
+            }
+        </script>
+    </section>
+    <!-- JAVASCRIPT END -->
+</body>
+</html>
