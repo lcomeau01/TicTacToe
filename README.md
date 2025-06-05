@@ -29,10 +29,10 @@ A fun and interactive browser-based Tic Tac Toe game with dynamic player turns, 
 
 ## Screenshots
 <p float="left">
-<img width="400" alt="image" src="https://github.com/user-attachments/assets/d3cecbee-6d0d-490f-b49b-e25c1dd56b85" />
-<img width="400" alt="image" src="https://github.com/user-attachments/assets/c2589da2-81f8-4205-aaff-1a9e6d4642f1" />
-  <img width="400" alt="image" src="https://github.com/user-attachments/assets/5b97c840-bc93-4131-9348-e98fa3ca58aa"/>
-  <img width="400" alt="image" src="https://github.com/user-attachments/assets/0f3a4ecc-8df5-4274-9864-e860241ac6e0" />
+<img width="48%" alt="image" src="https://github.com/user-attachments/assets/d3cecbee-6d0d-490f-b49b-e25c1dd56b85" />
+<img width="48%" alt="image" src="https://github.com/user-attachments/assets/c2589da2-81f8-4205-aaff-1a9e6d4642f1" />
+  <img width="48%" alt="image" src="https://github.com/user-attachments/assets/5b97c840-bc93-4131-9348-e98fa3ca58aa"/>
+  <img width="48%" alt="image" src="https://github.com/user-attachments/assets/0f3a4ecc-8df5-4274-9864-e860241ac6e0" />
 
 
 </p>
